@@ -1,0 +1,21 @@
+%h1= @event.title
+
+%dl
+  %dt 開始日時:
+  %dd= @event.start_time.strftime('%Y年%m月%d日 %H:%M')
+
+  %dt 終了日時:
+  %dd= @event.end_time.strftime('%Y年%m月%d日 %H:%M')
+
+  %dt 場所:
+  %dd= @event.location
+
+  %dt 説明:
+  %dd= @event.description
+
+%hr
+
+%div
+  = link_to '編集する', edit_event_path(@event), class: 'btn btn-primary'
+  = button_to '削除する', event_path(@event), method: :delete, data: { confirm: '本当に削除してもよろしいですか？' }, class: 'btn btn-danger'
+  = link_to '一覧に戻る', events_path, class: 'btn btn-secondary'
