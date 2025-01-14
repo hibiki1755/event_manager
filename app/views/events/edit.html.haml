@@ -1,0 +1,22 @@
+%h1 イベントを編集する
+
+= form_with model: @event, local: true do |f|
+  .form-group
+    = f.label :title, 'タイトル'
+    = f.text_field :title, class: 'form-control'
+
+  .form-group
+    = f.label :date, '日時'
+    = f.datetime_select :date, class: 'form-control'
+
+  .form-group
+    = f.label :location, '場所'
+    = f.text_field :location, class: 'form-control'
+
+  .form-group
+    = f.label :description, '説明'
+    = f.text_area :description, class: 'form-control'
+
+  %div
+    = f.submit '保存する', class: 'btn btn-success'
+    = link_to 'キャンセル', event_path(@event), class: 'btn btn-secondary'
