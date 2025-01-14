@@ -9,12 +9,14 @@
       %tr
         %th ユーザー名
         %th メールアドレス
+        %th 参加イベント数
         %th 操作
     %tbody
       - @users.each do |user|
         %tr
           %td= user.username
           %td= user.email
+          %td= user.attendances.count
           %td
             %div.btn-group{ role: "group", "aria-label": "操作ボタン" }
               = link_to '詳細', user_path(user), class: 'btn btn-info btn-sm me-2'
