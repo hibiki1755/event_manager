@@ -2,10 +2,11 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @users = User.all
+    @users = User.all.includes(:attendances)
   end
 
   def show
+    @attending_events = @user.attending_events
   end
 
   def new
