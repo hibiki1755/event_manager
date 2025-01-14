@@ -1,18 +1,23 @@
 Rails.application.routes.draw do
-  # Deviseのルートをカスタマイズ
-  devise_for :users, skip: [:registrations]
-  
-  # ルート設定
+  # Deviseの標準ルート（登録機能をスキップ）
+  devise_for :users
+
+  # カスタムログアウトルート
+  devise_scope :user do
+    delete 'logout', to: 'devise/sessions#destroy', as: :logout
+  end
+
+  # ルートパス
   root to: 'events#index'
-  
-  # 独自のUsersControllerのルート
+
+  # ユーザー関連のルート
   resources :users, only: [:index, :show, :new, :create, :edit, :update, :destroy]
 
+  # イベント関連のルート
   resources :events do
     member do
       post :join
       delete :leave
     end
   end
-  
 end
