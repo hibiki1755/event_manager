@@ -37,7 +37,9 @@ gem "bootsnap", require: false
 
 gem "haml-rails"
 gem 'html2haml'
-gem "bootstrap", "~> 5.2"
+gem 'bootstrap', '~> 5.3.3'
+gem 'popper_js', '~> 2.11'
+gem 'jquery-rails'
 gem "devise"
 gem 'sassc-rails'
 

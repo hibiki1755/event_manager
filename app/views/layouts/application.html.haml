@@ -1,16 +1,32 @@
 !!!
 %html
   %head
-    %title Event Manager
-    = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    %title Event Manager
+    = stylesheet_link_tag "application", media: "all", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload"
   %body
-    - if user_signed_in?
-      = link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'btn btn-danger'
-    - else
-      = link_to 'Sign In', new_user_session_path, class: 'btn btn-primary'
-      = link_to 'Sign Up', new_user_registration_path, class: 'btn btn-success'
-    .container
-      = yield
+    %header.bg-dark.text-white.fixed-top.d-flex.justify-content-between.align-items-center.px-3
+      %h2.mb-0
+        = link_to 'Event Manager', root_path, class: 'text-decoration-none text-white'
+      .d-flex.align-items-center.ml-auto
+        - if user_signed_in?
+          %span.mr-3= "ログイン中: #{current_user.username}"
+          = link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'btn btn-danger btn-sm'
+
+    .container-fluid
+      .row
+        .col-md-2.bg-light.sidebar.fixed-left
+          %p.text-center.mt-4
+            ログインユーザー:
+            %br
+            = current_user.email
+          %ul.nav.flex-column.mt-4
+            %li.nav-item.mb-3
+              = link_to 'ユーザー一覧', users_path, class: 'nav-link'
+            %li.nav-item.mb-3
+              = link_to 'イベント一覧', events_path, class: 'nav-link'
+
+        .col
+          .content.mt-3
+            = yield
