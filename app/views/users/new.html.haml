@@ -1,0 +1,27 @@
+%h1 新しいユーザーを作成
+
+= form_with model: @user, local: true do |f|
+  - if @user.errors.any?
+    .alert.alert-danger
+      %ul
+        - @user.errors.full_messages.each do |message|
+          %li= message
+
+  .mb-3
+    = f.label :username, 'ユーザー名'
+    = f.text_field :username, class: 'form-control'
+
+  .mb-3
+    = f.label :email, 'メールアドレス'
+    = f.email_field :email, class: 'form-control'
+
+  .mb-3
+    = f.label :password, 'パスワード'
+    = f.password_field :password, class: 'form-control'
+
+  .mb-3
+    = f.label :password_confirmation, 'パスワード（確認用）'
+    = f.password_field :password_confirmation, class: 'form-control'
+
+  = f.submit 'ユーザーを作成', class: 'btn btn-primary'
+  = link_to '一覧に戻る', users_path, class: 'btn btn-secondary'

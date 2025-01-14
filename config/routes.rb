@@ -1,11 +1,23 @@
 Rails.application.routes.draw do
-  get "events/index"
-  get "events/show"
-  get "events/new"
-  get "events/edit"
-  root 'events#index' # ルートページをイベント一覧に設定（例）
+  # Deviseの標準ルート（登録機能をスキップ）
+  devise_for :users
 
-  devise_for :users  # Deviseによるユーザールーティングを追加
+  # カスタムログアウトルート
+  devise_scope :user do
+    delete 'logout', to: 'devise/sessions#destroy', as: :logout
+  end
 
-  resources :events # イベント管理用のルーティング
+  # ルートパス
+  root to: 'events#index'
+
+  # ユーザー関連のルート
+  resources :users, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+
+  # イベント関連のルート
+  resources :events do
+    member do
+      post :join
+      delete :leave
+    end
+  end
 end

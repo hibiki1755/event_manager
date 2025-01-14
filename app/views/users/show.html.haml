@@ -1,0 +1,34 @@
+%h1= @user.username
+
+%dl
+  %dt メールアドレス:
+  %dd= @user.email
+
+%hr
+
+%h2 参加中のイベント
+- if @attending_events.any?
+  %table.table.table-striped
+    %thead
+      %tr
+        %th イベントタイトル
+        %th 詳細
+        %th 
+    %tbody
+      - @attending_events.each do |event|
+        %tr
+          %td= event.title
+          %td= event.description
+          %td
+            .btn-group{ role: "group", "aria-label": "操作ボタン" }
+              = link_to '詳細', event_path(event), class: 'btn btn-info btn-sm me-2'
+              = button_to '参加をキャンセル', leave_event_path(event), method: :delete, class: 'btn btn-danger btn-sm'
+- else
+  %p 参加中のイベントはありません。
+
+%hr
+
+%div.btn-group{ role: "group", "aria-label": "操作ボタン" }
+  = link_to '編集', edit_user_path(@user), class: 'btn btn-primary btn-sm me-2'
+  = button_to '削除', user_path(@user), method: :delete, data: { confirm: '本当に削除してもよろしいですか？' }, class: 'btn btn-danger btn-sm me-2'
+  = link_to '一覧に戻る', users_path, class: 'btn btn-secondary btn-sm'

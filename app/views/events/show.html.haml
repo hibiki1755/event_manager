@@ -1,4 +1,11 @@
+%div.position-relative
+  .btn-group.position-absolute.top-0.end-0{ role: "group", "aria-label": "操作ボタン" }
+    = link_to '編集する', edit_event_path(@event), class: 'btn btn-primary me-2'
+    = button_to '削除する', event_path(@event), method: :delete, data: { confirm: '本当に削除してもよろしいですか？' }, class: 'btn btn-danger'
+
 %h1= @event.title
+
+%hr
 
 %dl
   %dt 開始日時:
@@ -10,12 +17,14 @@
   %dt 場所:
   %dd= @event.location
 
-  %dt 説明:
+  %dt 詳細:
   %dd= @event.description
 
 %hr
 
-%div
-  = link_to '編集する', edit_event_path(@event), class: 'btn btn-primary'
-  = button_to '削除する', event_path(@event), method: :delete, data: { confirm: '本当に削除してもよろしいですか？' }, class: 'btn btn-danger'
-  = link_to '一覧に戻る', events_path, class: 'btn btn-secondary'
+%div.btn-group{ role: "group", "aria-label": "操作ボタン" }
+  - if @event.attendees.include?(current_user)
+    = button_to '参加をキャンセルする', leave_event_path(@event), method: :delete, class: 'btn btn-danger me-2'
+  - else
+    = button_to 'イベントに参加する', join_event_path(@event), method: :post, class: 'btn btn-success me-2'
+  = link_to 'イベント一覧に戻る', events_path, class: 'btn btn-secondary me-2'

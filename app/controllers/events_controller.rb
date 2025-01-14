@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  skip_before_action :authenticate_user!, only: [:index]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :show, :join, :leave]
 
   def index
     @events = Event.all
@@ -36,6 +36,16 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
     redirect_to events_path, notice: 'イベントが削除されました'
+  end
+
+  def join
+    @event.attendees << current_user unless @event.attendees.include?(current_user)
+    redirect_to @event, notice: 'イベントに参加しました。'
+  end
+
+  def leave
+    @event.attendees.delete(current_user)
+    redirect_to @event, notice: 'イベントの参加をキャンセルしました。'
   end
 
   private
