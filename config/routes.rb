@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
-  get "events/index"
-  get "events/show"
-  get "events/new"
-  get "events/edit"
-  root 'events#index' # ルートページをイベント一覧に設定（例）
+  # Deviseのルートをカスタマイズ
+  devise_for :users, skip: [:registrations]
+  
+  # 独自のUsersControllerのルート
+  resources :users, only: [:index, :show, :new, :create, :edit, :update, :destroy]
 
-  devise_for :users  # Deviseによるユーザールーティングを追加
+  # 他のリソース
+  resources :events
 
-  resources :events # イベント管理用のルーティング
+  # ルート設定
+  root to: 'events#index'
 end

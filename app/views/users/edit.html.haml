@@ -1,0 +1,18 @@
+%h1 ユーザー情報を編集
+
+= form_with model: @user, local: true do |f|
+  .form-group
+    = f.label :username, 'ユーザー名'
+    = f.text_field :username, class: 'form-control'
+
+  .form-group
+    = f.label :email, 'メールアドレス'
+    = f.email_field :email, class: 'form-control'
+
+  .form-group
+    = f.label :password, 'パスワード'
+    = f.password_field :password, class: 'form-control'
+
+  %div
+    = f.submit '保存する', class: 'btn btn-success'
+    = link_to 'キャンセル', user_path(@user), class: 'btn btn-secondary'

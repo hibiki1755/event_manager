@@ -1,0 +1,15 @@
+%h1= @user.username
+
+%dl
+  %dt ユーザー名:
+  %dd= @user.username
+
+  %dt メールアドレス:
+  %dd= @user.email
+
+%hr
+
+%div
+  = link_to '編集する', edit_user_path(@user), class: 'btn btn-primary'
+  = button_to '削除する', user_path(@user), method: :delete, data: { confirm: '本当に削除してもよろしいですか？' }, class: 'btn btn-danger'
+  = link_to '一覧に戻る', users_path, class: 'btn btn-secondary'
