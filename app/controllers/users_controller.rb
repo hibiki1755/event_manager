@@ -41,7 +41,11 @@ class UsersController < ApplicationController
   private
 
   def set_user
-    @user = User.find(params[:id])
+    if params[:id] =~ /^\d+$/
+      @user = User.find(params[:id])
+    else
+      redirect_to root_path, alert: "無効なアクセスです。"
+    end
   end
 
   def user_params
