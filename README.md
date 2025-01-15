@@ -122,10 +122,6 @@ Event Managerは、ユーザーがイベントを作成し、参加管理を行�
 
 9. **ユーザー詳細画面**  
    ![ユーザー詳細画像](https://github.com/hibiki1755/event_manager/blob/readme/img/users_show.png?raw=true)
-
-10. **ユーザー編集画面**  
-    ![ユーザー編集画面画像](https://github.com/hibiki1755/event_manager/blob/readme/img/users_edit.png?raw=true)
-
 ---
 
 詳細な情報については、[お問い合わせ](mailto:44da.1biki@gmail.com)ください。
